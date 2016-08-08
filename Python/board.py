@@ -22,3 +22,7 @@ class Board:
 		ruleSizeOne = GroupSizeOneRule()
 		for group in self.groups:
 			ruleSizeOne.apply(group)
+
+		groupResultRule = GroupResultRule()
+		for group in self.groups:
+			groupResultRule.apply(group)

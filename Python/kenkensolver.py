@@ -2,15 +2,16 @@
 
 from board import Board
 from group import Group
+from operation import Operation
 
 size = 3
 
 groups = {
-	"a": Group(3 ,"+"),
-	"b": Group(4, "+"),
-	"c": Group(5, "+"),
+	"a": Group(3, Operation.get("+")),
+	"b": Group(4, Operation.get("+")),
+	"c": Group(5, Operation.get("+")),
 	"d": Group(3),
-	"e": Group(3, "+")
+	"e": Group(3, Operation.get("+"))
 }
 
 pattern = 'aabccbdde'
