@@ -14,7 +14,7 @@ groups = {
 	"e": Group(3, Operation.get("+"))
 }
 
-pattern = 'aabccbdde'
+pattern = 'aabccbdee'
 
 board = Board(size)
 
