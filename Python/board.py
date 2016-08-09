@@ -24,10 +24,31 @@ class Board:
 		for group in self.groups:
 			ruleSizeOne.apply(group)
 
-		groupResultRule = GroupResultRule()
-		for group in self.groups:
-			groupResultRule.apply(group)
+		changed = True
 
-		cellOneHintRule = CellOneHintRule()
 		for cell in self.cells:
-			cellOneHintRule.apply(cell)
+			print cell.value, cell.hints
+		print
+
+		groupResultRule = GroupResultRule()
+		cellOneHintRule = CellOneHintRule()
+
+		while changed:
+			changed = False
+
+			for group in self.groups:
+				applyingResult = groupResultRule.apply(group)
+				changed = changed or applyingResult
+#			print 'Aftter group result rule'
+#			for cell in self.cells:
+#				print cell.value, cell.hints
+#			print
+
+			for cell in self.cells:
+				applyingResult = cellOneHintRule.apply(cell)
+				changed = changed or applyingResult
+
+#			print 'After one hint per cell rule'
+#			for cell in self.cells:
+#				print cell.value, cell.hints
+#			print

@@ -4,17 +4,24 @@ from board import Board
 from group import Group
 from operation import Operation
 
-size = 3
+size = 4
 
 groups = {
-	"a": Group(3, Operation.get("+")),
-	"b": Group(4, Operation.get("+")),
-	"c": Group(5, Operation.get("+")),
-	"d": Group(3),
-	"e": Group(3, Operation.get("+"))
+	"a": Group(5, Operation.get("+")),
+	"b": Group(5, Operation.get("+")),
+	"c": Group(7, Operation.get("+")),
+	"d": Group(8, Operation.get("+")),
+	"e": Group(1),
+	"f": Group(10, Operation.get("+")),
+	"g": Group(4, Operation.get("+"))
 }
 
-pattern = 'aabccbdee'
+#aabb
+#cddd
+#ccfe
+#ggff
+
+pattern = 'aabbcdddccfeggff'
 
 board = Board(size)
 
