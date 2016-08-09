@@ -20,16 +20,20 @@ class Board:
 				column.cells.append(cell)
 				self.cells.append(cell)
 
+	def __printBoard(self):
+		for i in range(self.size):
+			initialindex = i*self.size
+			print ' '.join(['*' if cell.value == None else str(cell.value) for cell in self.cells[initialindex : initialindex + self.size]])
+		for cell in self.cells:
+			print cell.hints
+
+
 	def solve(self):
 		ruleSizeOne = GroupSizeOneRule()
 		for group in self.groups:
 			ruleSizeOne.apply(group)
 
 		changed = True
-
-		for cell in self.cells:
-			print cell.value, cell.hints
-		print
 
 		groupResultRule = GroupResultRule()
 		cellOneHintRule = CellOneHintRule()
@@ -45,19 +49,12 @@ class Board:
 			for group in self.groups:
 				applyingResult = groupResultRule.apply(group)
 				changed = changed or applyingResult
-#			print 'Aftter group result rule'
-#			for cell in self.cells:
-#				print cell.value, cell.hints
-#			print
 
 			for cell in self.cells:
 				applyingResult = cellOneHintRule.apply(cell)
 				changed = changed or applyingResult
 
-#			print 'After one hint per cell rule'
-#			for cell in self.cells:
-#				print cell.value, cell.hints
-#			print
-
 			for line in lines:
 				twoCellsLineTwoHints.apply(line)
+
+		self.__printBoard();
