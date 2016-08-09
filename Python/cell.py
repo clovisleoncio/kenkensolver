@@ -17,4 +17,13 @@ class Cell(object):
 			line.removeHint(value)
 
 	def removeHint(self, hint):
-		if hint in self.hints: self.hints.remove(hint)
+		if hint in self.hints:
+			self.hints.remove(hint)
+			return True
+		return False
+
+	def removeHints(self, hints):
+		removed = False
+		for hint in hints:
+			removed = self.removeHint(hint) or removed
+		return removed

@@ -2,6 +2,7 @@ from cell import Cell
 from line import Line
 from grouprule import *
 from cellrule import *
+from linerule import *
 
 class Board:
 
@@ -32,6 +33,11 @@ class Board:
 
 		groupResultRule = GroupResultRule()
 		cellOneHintRule = CellOneHintRule()
+		twoCellsLineTwoHints = TwoCellsLineTwoHints(self.size)
+
+		lines = []
+		lines.extend(self.rows)
+		lines.extend(self.columns)
 
 		while changed:
 			changed = False
@@ -52,3 +58,6 @@ class Board:
 #			for cell in self.cells:
 #				print cell.value, cell.hints
 #			print
+
+			for line in lines:
+				twoCellsLineTwoHints.apply(line)
