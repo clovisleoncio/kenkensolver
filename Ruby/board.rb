@@ -14,7 +14,7 @@ class Board
 		for i in 0...size
 			for j in 0...size
 				row = @rows[i]
-				column = @columns[i]
+				column = @columns[j]
 				cell = Cell.new(size, [row, column])
 				row << cell
 				column << cell
@@ -49,13 +49,13 @@ class Board
 		cellOneHintRule = CellOneHintRule.new
 
 		while changed
-
 			changed = false
 
 			@groups.each {|group| changed = groupResultRule.apply(group) or changed }
 
-			@cells.each{|cell| changed = cellOneHintRule.apply(cell) or changed}
-
+			@cells.each{|cell|
+				changed = cellOneHintRule.apply(cell) || changed
+			}
 		end
 
 		printBoard

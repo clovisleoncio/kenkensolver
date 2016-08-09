@@ -1,10 +1,8 @@
 class Cell
 
 	def initialize(size, lines)
-
 		@hints = (1..size).to_a
 		@lines = lines
-
 	end
 
 	def value
@@ -23,6 +21,10 @@ class Cell
 
 	def removeHint(hint)
 		@hints.delete(hint)
+	end
+
+	def lines
+		@lines
 	end
 
 end

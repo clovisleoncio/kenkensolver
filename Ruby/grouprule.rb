@@ -5,30 +5,28 @@ class GroupResultRule
 	end
 
 	def __isPossibeSolution(group, candidates)
-		group.operation.isPossibleSolution(candidates, group.result)
+		if group.operation.isPossibleSolution(candidates, group.result)
+			candidatesPerValue = {}
+			(1..@size).each{|i| candidatesPerValue[i] = []}
+			(0...candidates.size).each {|i| candidatesPerValue[candidates[i]] << group.cells[i]}
+			candidatesPerValue.values().each do |cells|
+				if cells.length > 1
+					lines = Array.new()
+					cells.each {|cell| lines.concat(cell.lines)}
+					lineCounting = Hash.new 0
+					lines.each { |line| lineCounting[line] += 1 }
+					lineCounting.values.each {|value| return false if value > 1}
+				end
+			end
+			return true
+		end
+		return false
 	end
-
-#	def __isPossibeSolution(self, group, candidates):
-#		if group.operation.isPossibleSolution(candidates, group.result):
-#			candidatesPerValue = {(i+1): [] for i in range(self.size)}
-#			for i in range(len(candidates)):
-#				candidatesPerValue[candidates[i]].append(group.cells[i])
-#			for cellsWithRepetition in candidatesPerValue.values():
-#				if len(cellsWithRepetition) > 1:
-#					lines = []
-#					for cell in cellsWithRepetition:
-#						lines.extend(cell.lines)
-#					lineCounting = collections.Counter(lines)
-#					for value in lineCounting.values():
-#						if value > 1:
-#							return False
-#			return True
-#		return False
 
 	def __checkPossibilities(group, index, candidates, solutions)
 		if index < group.cells.size
 			cell = group.cells[index]
-			options = cell.value ? [cell] : cell.hints
+			options = cell.value ? [cell.value] : cell.hints
 			options.each do |option|
 				newCandidates = Array.new(candidates)
 				newCandidates << option
