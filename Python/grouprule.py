@@ -28,31 +28,3 @@ class GroupResultRule:
 				cell = group.cells[i]
 				for hint in cell.hints:
 					if hint not in solutions[i]: cell.hints.remove(hint)
-
-
-
-
-
-
-
-from cell import Cell
-from group import Group
-from operation import Operation
-
-#group = Group(3, Operation.get("+"))
-group = Group(4, Operation.get("+"))
-cell1 = Cell(3, [])
-cell1.hints = [1, 2, 3]
-cell2 = Cell(3, [])
-cell2.hints = [1, 2, 3]
-group.cells = [cell1, cell2]
-
-print cell1.hints
-print cell2.hints
-
-rule = GroupResultRule()
-rule.apply(group)
-
-print cell1.hints
-print cell2.hints
-
