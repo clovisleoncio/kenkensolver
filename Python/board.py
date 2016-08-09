@@ -1,6 +1,7 @@
 from cell import Cell
 from line import Line
 from grouprule import *
+from cellrule import *
 
 class Board:
 
@@ -26,3 +27,7 @@ class Board:
 		groupResultRule = GroupResultRule()
 		for group in self.groups:
 			groupResultRule.apply(group)
+
+		cellOneHintRule = CellOneHintRule()
+		for cell in self.cells:
+			cellOneHintRule.apply(cell)
