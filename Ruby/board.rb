@@ -2,6 +2,7 @@ require './line'
 require './cell'
 require './grouprule'
 require './cellrule'
+require './linerule'
 
 class Board
 
@@ -47,15 +48,18 @@ class Board
 
 		groupResultRule = GroupResultRule.new(@size)
 		cellOneHintRule = CellOneHintRule.new
+		twoCellsLineTwoHints = TwoCellsLineTwoHints.new
+
+		lines = Array.new.concat(@rows).concat(@columns)
 
 		while changed
 			changed = false
 
-			@groups.each {|group| changed = groupResultRule.apply(group) or changed }
+			@groups.each {|group| changed = groupResultRule.apply(group) || changed }
+			
+			@cells.each{|cell| changed = cellOneHintRule.apply(cell) || changed }
 
-			@cells.each{|cell|
-				changed = cellOneHintRule.apply(cell) || changed
-			}
+			lines.each{|line| changed = twoCellsLineTwoHints.apply(line) || changed}
 		end
 
 		printBoard
@@ -63,39 +67,3 @@ class Board
 	end
 
 end
-
-__END__
-
-
-class Board:
-
-	def solve(self):
-		ruleSizeOne = GroupSizeOneRule()
-		for group in self.groups:
-			ruleSizeOne.apply(group)
-
-		changed = True
-
-		groupResultRule = GroupResultRule(self.size)
-		cellOneHintRule = CellOneHintRule()
-		twoCellsLineTwoHints = TwoCellsLineTwoHints(self.size)
-
-		lines = []
-		lines.extend(self.rows)
-		lines.extend(self.columns)
-
-		while changed:
-			changed = False
-
-			for group in self.groups:
-				applyingResult = groupResultRule.apply(group) or changed
-				changed = changed or applyingResult
-
-			for cell in self.cells:
-				applyingResult = cellOneHintRule.apply(cell)
-				changed = changed or applyingResult
-
-			for line in lines:
-				twoCellsLineTwoHints.apply(line)
-
-		self.__printBoard();
