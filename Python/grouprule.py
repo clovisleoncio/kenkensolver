@@ -1,3 +1,5 @@
+import collections
+
 class GroupSizeOneRule:
 
 	def apply(self, group):
@@ -8,6 +10,23 @@ class GroupSizeOneRule:
 		return False
 
 class GroupResultRule:
+
+	def __isPossibeSolution(self, group, candidates):
+		if group.operation.isPossibleSolution(candidates, group.result):
+			candidatesPerValue = collections.Counter(candidates)
+			for candidate in candidatesPerValue:
+				count = candidatesPerValue[candidate]
+				if count > 1:
+					cellsWithRepetition = [group.cells[i] for i in range(len(candidates)) if candidates[i] == candidate]
+					lines = []
+					for cell in cellsWithRepetition:
+						lines.extend(cell.lines)
+					lineCounting = collections.Counter(lines)
+					for value in lineCounting.values():
+						if value > 1:
+							return False
+			return True
+		return False
 
 	def __checkPossibilities(self, group, index, candidates, solutions):
 		if index < len(group.cells):
@@ -20,7 +39,7 @@ class GroupResultRule:
 				newCandidates.append(option)
 				self.__checkPossibilities(group, index + 1, newCandidates, solutions)
 		else:
-			if group.operation.isPossibleSolution(candidates, group.result):
+			if self.__isPossibeSolution(group, candidates):
 				for i in range(len(group.cells)):
 					solutions[i].append(candidates[i])
 
