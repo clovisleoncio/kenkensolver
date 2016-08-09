@@ -35,7 +35,7 @@ class Board:
 
 		changed = True
 
-		groupResultRule = GroupResultRule()
+		groupResultRule = GroupResultRule(self.size)
 		cellOneHintRule = CellOneHintRule()
 		twoCellsLineTwoHints = TwoCellsLineTwoHints(self.size)
 

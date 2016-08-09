@@ -11,13 +11,16 @@ class GroupSizeOneRule:
 
 class GroupResultRule:
 
+	def __init__(self, size):
+		self.size = size
+
 	def __isPossibeSolution(self, group, candidates):
 		if group.operation.isPossibleSolution(candidates, group.result):
-			candidatesPerValue = collections.Counter(candidates)
-			for candidate in candidatesPerValue:
-				count = candidatesPerValue[candidate]
-				if count > 1:
-					cellsWithRepetition = [group.cells[i] for i in range(len(candidates)) if candidates[i] == candidate]
+			candidatesPerValue = {(i+1): [] for i in range(self.size)}
+			for i in range(len(candidates)):
+				candidatesPerValue[candidates[i]].append(group.cells[i])
+			for cellsWithRepetition in candidatesPerValue.values():
+				if len(cellsWithRepetition) > 1:
 					lines = []
 					for cell in cellsWithRepetition:
 						lines.extend(cell.lines)
@@ -27,6 +30,7 @@ class GroupResultRule:
 							return False
 			return True
 		return False
+
 
 	def __checkPossibilities(self, group, index, candidates, solutions):
 		if index < len(group.cells):

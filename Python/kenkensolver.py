@@ -5,7 +5,6 @@ from group import Group
 from operation import Operation
 
 size = 4
-
 groups = {
 	"a": Group(9, Operation.get("+")),
 	"b": Group(1, Operation.get("+")),
@@ -16,12 +15,10 @@ groups = {
 	"g": Group(5, Operation.get("+")),
 	"h": Group(5, Operation.get("+"))
 }
-
 #accg
 #adeg
 #adeh
 #bffh
-
 pattern = 'accgadegadehbffh'
 
 board = Board(size)
