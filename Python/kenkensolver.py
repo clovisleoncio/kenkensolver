@@ -6,20 +6,18 @@ from operation import Operation
 
 size = 4
 groups = {
-	"a": Group(9, Operation.get("+")),
-	"b": Group(1, Operation.get("+")),
-	"c": Group(5, Operation.get("+")),
-	"d": Group(3, Operation.get("+")),
-	"e": Group(5, Operation.get("+")),
-	"f": Group(7, Operation.get("+")),
-	"g": Group(5, Operation.get("+")),
-	"h": Group(5, Operation.get("+"))
+	"a": Group(6, Operation.get("+")),
+	"b": Group(7, Operation.get("+")),
+	"c": Group(4, Operation.get("+")),
+	"d": Group(7, Operation.get("+")),
+	"e": Group(7, Operation.get("+")),
+	"f": Group(9, Operation.get("+"))
 }
-#accg
-#adeg
-#adeh
-#bffh
-pattern = 'accgadegadehbffh'
+#acee
+#adef
+#addf
+#bbbf
+pattern = 'aceeadefaddfbbbf'
 
 board = Board(size)
 
