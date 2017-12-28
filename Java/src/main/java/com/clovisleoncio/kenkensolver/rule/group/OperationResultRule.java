@@ -12,6 +12,7 @@ public class OperationResultRule extends GroupRule {
 
 	@Override
 	public boolean apply(Group subject) {
+		boolean changed = false;
 		if (subject.getOperation() != null) {
 			
 			List<Cell> cells = subject.getCells();
@@ -24,13 +25,13 @@ public class OperationResultRule extends GroupRule {
 			
 			for (int i = 0; i < validHints.length; i++) {
 				Cell cell = subject.getCells().get(i);
-				cell.setHints(validHints[i]);
+				if (!validHints[i].containsAll(cell.getHints())) {
+					cell.setHints(validHints[i]);
+					changed = true;
+				}
 			}
-			
-			// TODO changed rule
-			
 		}
-		return false;
+		return changed;
 	}
 
 	private void checkValidHints(List<Integer> availableHints, Group group, Set<Integer>[] validHints) {

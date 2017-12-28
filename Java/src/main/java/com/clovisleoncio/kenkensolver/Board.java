@@ -54,10 +54,15 @@ public class Board {
 			int verticalIndex = i % boardSize;
 			Group group = nameToGroup.get(representationChar);
 			
+			Line horizontalLine = horizontalLines[horizontalIndex];
+			Line verticalLine = verticalLines[verticalIndex];
+			
 			Cell cell = Cell.cellForBoardSize(boardSize);
 			group.add(cell);
-			horizontalLines[horizontalIndex].add(cell);
-			verticalLines[verticalIndex].add(cell);
+			horizontalLine.add(cell);
+			verticalLine.add(cell);
+			cell.setLines(horizontalLine, verticalLine);
+			
 			cells[i] = cell;
 		}
 		
@@ -66,21 +71,21 @@ public class Board {
 	
 	public void solve() {
 		
-		boolean changed;
+		boolean changed = true;
 
 		RuleApplier<Cell> cellRuleApplier = new RuleApplier<Cell>(CELL_RULES, cells);
 		RuleApplier<Line> lineRuleApplier = new RuleApplier<Line>(LINE_RULES, allLines);
 		RuleApplier<Group> groupRuleApplier = new RuleApplier<Group>(GROUP_RULES, groups);
 		
-//		while () {
+		while (changed) {
 		
 			changed = cellRuleApplier.apply();
 			
-			changed = applyLineRules() || changed;
+			changed = lineRuleApplier.apply() || changed;
 			
 			changed = groupRuleApplier.apply() || changed;
 			
-//		}
+		}
 			
 		
 		for (Group group : groups) {
@@ -88,11 +93,6 @@ public class Board {
 				System.out.println(group.getCells());
 		}
 		
-	}
-
-	private boolean applyLineRules() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
