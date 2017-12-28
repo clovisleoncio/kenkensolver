@@ -8,6 +8,7 @@ import com.clovisleoncio.kenkensolver.rule.cell.OnlyOneHintRule;
 import com.clovisleoncio.kenkensolver.rule.group.GroupRule;
 import com.clovisleoncio.kenkensolver.rule.group.OperationResultRule;
 import com.clovisleoncio.kenkensolver.rule.line.LineRule;
+import com.clovisleoncio.kenkensolver.rule.line.TwoHintsTwoCellsRule;
 
 public class Board {
 	
@@ -16,6 +17,7 @@ public class Board {
 	};
 
 	private static LineRule[] LINE_RULES = {
+			new TwoHintsTwoCellsRule()
 	};
 
 	private static GroupRule[] GROUP_RULES = {
@@ -43,7 +45,7 @@ public class Board {
 			horizontalLines[i] = new Line();
 			verticalLines[i] = new Line();
 			allLines[i] = horizontalLines[i];
-			allLines[i*2] = verticalLines[i];
+			allLines[i + boardSize] = verticalLines[i];
 		}
 		
 		cells = new Cell[representation.length()];
@@ -86,13 +88,12 @@ public class Board {
 			changed = groupRuleApplier.apply() || changed;
 			
 		}
-			
 		
-		for (Group group : groups) {
-				System.out.println("GROUP RESULT: " + group.getResult());
-				System.out.println(group.getCells());
+		for (int i = 0; i < cells.length; i++) {
+			System.out.printf("(%s, %s)\n", (i / boardSize) + 1, (i % boardSize) + 1);
+			System.out.println(cells[i]);
 		}
-		
+			
 	}
 
 }

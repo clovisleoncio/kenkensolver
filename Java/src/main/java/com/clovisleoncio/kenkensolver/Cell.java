@@ -1,13 +1,15 @@
 package com.clovisleoncio.kenkensolver;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
 @ToString(exclude = "lines")
+@EqualsAndHashCode(exclude = "lines")
 public class Cell {
 	
 	public static final Cell cellForBoardSize(int boardSize) {
@@ -19,7 +21,7 @@ public class Cell {
 	}
 	
 	private Integer value;
-	private Set<Integer> hints = new HashSet<>();
+	private List<Integer> hints = new ArrayList();
 	private Line[] lines;
 	
 	public void setLines(Line... lines) {
@@ -30,8 +32,12 @@ public class Cell {
 		return lines;
 	}
 
-	public void removeHint(Integer hint) {
-		hints.remove(hint);
+	public boolean removeHint(Integer hint) {
+		return hints.remove(hint);
+	}
+
+	public boolean removeHints(List<Integer> hintsToRemove) {
+		return hints.removeAll(hintsToRemove);
 	}
 	
 }

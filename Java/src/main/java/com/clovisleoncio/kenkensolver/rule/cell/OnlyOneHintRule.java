@@ -9,7 +9,7 @@ public class OnlyOneHintRule extends CellRule {
 	public boolean apply(Cell subject) {
 		
 		if (subject.getValue() == null && subject.getHints().size() == 1) {
-			subject.setValue(subject.getHints().iterator().next());
+			subject.setValue(subject.getHints().get(0));
 			
 			for (Line line : subject.getLines()) {
 				line.removeHint(subject.getValue(), subject);

@@ -26,7 +26,7 @@ public class OperationResultRule extends GroupRule {
 			for (int i = 0; i < validHints.length; i++) {
 				Cell cell = subject.getCells().get(i);
 				if (!validHints[i].containsAll(cell.getHints())) {
-					cell.setHints(validHints[i]);
+					cell.setHints(new ArrayList<>(validHints[i]));
 					changed = true;
 				}
 			}
